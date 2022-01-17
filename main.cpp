@@ -6,7 +6,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 //#include <cuda_provider_factory.h>
-#include <onnxruntime_cxx_api.h>
+#include <core/session/onnxruntime_cxx_api.h>
 
 using namespace cv;
 using namespace std;
@@ -34,7 +34,7 @@ private:
 AnimeGAN::AnimeGAN()
 {
 	string model_path = "face_paint_512_v2_0.onnx";
-	std::wstring widestr = std::wstring(model_path.begin(), model_path.end());
+	std::string widestr = std::string(model_path.begin(), model_path.end());
 	//OrtStatus* status = OrtSessionOptionsAppendExecutionProvider_CUDA(sessionOptions, 0);
 	sessionOptions.SetGraphOptimizationLevel(ORT_ENABLE_BASIC);
 	ort_session = new Session(env, widestr.c_str(), sessionOptions);
@@ -113,6 +113,7 @@ int main()
 
 	
 	static const string kWinName = "Deep learning AnimeGAN in ONNXRuntime";
+	imwrite("liushishi_demo.jpg", dstimg);
 	namedWindow(kWinName, WINDOW_NORMAL);
 	imshow(kWinName, dstimg);
 	namedWindow("image", WINDOW_NORMAL);
